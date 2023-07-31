@@ -1,0 +1,36 @@
+--Create a store database
+
+CREATE TABLE Items (ID INTEGER PRIMARY KEY, Name TEXT, Brand TEXT, Price INTEGER, Sales INTEGER);
+
+INSERT INTO Items VALUES (1, "White Tank", "Agolde", 30, 3);
+INSERT INTO Items VALUES (2, "Black Tank", "Agolde", 30, 2);
+INSERT INTO Items VALUES (3, "White Short Sleeve", "Agolde", 40, 1);
+INSERT INTO Items VALUES (4, "Black Short Sleeve", "Agolde", 40, 0);
+INSERT INTO Items VALUES (5, "Blue Short Sleeve", "Agolde", 40, 3);
+INSERT INTO Items VALUES (6, "Black Denim Shorts", "Agolde", 80, 3);
+INSERT INTO Items VALUES (7, "Dark Wash Denim Shorts", "Agolde", 80, 1);
+INSERT INTO Items VALUES (8, "Light Wash Denim Shorts", "Agolde", 80, 3);
+INSERT INTO Items VALUES (9, "White Denim Shorts", "Agolde", 80, 3);
+INSERT INTO Items VALUES (10, "Black Denim Shorts", "Citizens of Humanity", 120, 1);
+INSERT INTO Items VALUES (11, "Dark Wash Denim Shorts", "Citizens of Humanity", 120, 2);
+INSERT INTO Items VALUES (12, "Light Wash Denim Shorts", "Citizens of Humanity", 120, 5);
+INSERT INTO Items VALUES (13, "White Denim Shorts", "Citizens of Humanity", 120, 6);
+INSERT INTO Items Values (14, "Vintage Dark Wash Shorts", "Levis", 75, 5);
+INSERT INTO Items Values (15, "Vintage Light Wash Shorts", "Levis", 75, 8);
+
+--display the database ordered by price. 
+SELECT * FROM Items ORDER BY Price DESC;
+
+--How many sales are there for each brand? 
+SELECT Brand, SUM(Sales) FROM Items GROUP BY Brand;
+
+--what is the avg price of Agolde brand items?
+SELECT AVG(price) "Average Price"
+FROM Items
+WHERE brand='Agolde'; 
+
+--what are the most 5 popular items? 
+SELECT name, price, sales
+FROM Items
+order by sales desc
+limit 5; 
