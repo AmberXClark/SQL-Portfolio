@@ -67,9 +67,9 @@ END AS "Intelligence Range"
 FROM marvels
 GROUP BY "Intelligence Range";
 
---Find the top 3 most popular female American characters that do not have bad alignment 
+--Find the top 3 most popular female American characters that do not have good alignment 
 SELECT name, popularity
 FROM marvels
-WHERE gender = "Female" AND alignment != "Bad"
+WHERE gender = "Female" AND alignment != "Good"
 ORDER BY popularity DESC
 LIMIT 3;
