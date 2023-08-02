@@ -43,21 +43,21 @@ INSERT INTO marvels VALUES(26, "Professor X", 58, "Good", "Male", 1.83, 86, "EUA
 
 SELECT * FROM marvels;
 
---Find the average, max, and min popularity for all marvel characters
+--Found the average, max, and min popularity for all marvel characters
 SELECT ROUND (AVG(popularity)) AS "Average Popularity", MAX(popularity) "Maximum Popularity", MIN(popularity) AS "Minimum Popularity"  FROM marvels;
 
 -- Number of males/ females 
 SELECT gender, COUNT(*) FROM marvels
 GROUP BY gender;
 
---Find the 5 most popular hometowns (using HAVING)
+--Found the 5 most popular hometowns (using HAVING)
 SELECT hometown, ROUND(AVG(popularity)) AS "Average_Popularity" FROM marvels
 GROUP BY hometown
 HAVING Average_Popularity > 15
 ORDER BY Average_Popularity DESC
 LIMIT 5;
 
---Find how many high, medium, and low intelligence characters there are (using CASE)
+--Found how many high, medium, and low intelligence characters there are (using CASE)
 SELECT COUNT(*),
 CASE
 WHEN intelligence > 5 THEN "High"
@@ -67,7 +67,7 @@ END AS "Intelligence Range"
 FROM marvels
 GROUP BY "Intelligence Range";
 
---Find the top 3 most popular female American characters that do not have good alignment 
+--Found the top 3 most popular female American characters that do not have good alignment 
 SELECT name, popularity
 FROM marvels
 WHERE gender = "Female" AND alignment != "Good"
