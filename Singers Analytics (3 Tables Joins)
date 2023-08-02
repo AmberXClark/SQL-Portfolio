@@ -1,0 +1,59 @@
+--Created tables that are related
+
+CREATE TABLE Singers (ID INTEGER, Name TEXT, Age INTEGER, Albums INTEGER, Collab_SingerID INTEGER);
+INSERT INTO Singers VALUES (1, "Taylor Swift", 32, 7, 7);
+INSERT INTO Singers VALUES (2, "Justin Bieber", 29, 4, 3);
+INSERT INTO Singers VALUES (3, " Billie Eilish", 24, 3, 2);
+INSERT INTO Singers VALUES (4, "Ed Sheeran", 36, 5, 6);
+INSERT INTO Singers VALUES (5, "Beyonce", 40, 7, 8);
+INSERT INTO Singers VALUES (6, "Bruno Mars", 43, 5, 4);
+INSERT INTO Singers VALUES (7, "Ariana Grande", 32, 6, 1);
+INSERT INTO Singers VALUES (8, "Harry Styles", 33, 4, 5);
+INSERT INTO Singers VALUES (9, "Lady Gaga", 36, 6, 10);
+INSERT INTO Singers VALUES (10, "Miley Cyrus", 31, 3, 9);
+
+CREATE TABLE Albums (ID INTEGER, Artist_ID INTEGER, Name TEXT, Songs INTEGER, Release_Year INTEGER);
+INSERT INTO Albums VALUES (1, 3, "Happier Than Ever", 12, 2021);
+INSERT INTO Albums VALUES (2, 1, "Lover", 16, 2020);
+INSERT INTO Albums VALUES (3, 8, "Harry's House", 12, 2022);
+INSERT INTO Albums VALUES (4, 8, "Fine Line", 15, 2020);
+
+CREATE TABLE Songs (Name TEXT, Artist_ID INTEGER, Album TEXT);
+INSERT INTO Songs VALUES ("Cornelia Street", 1, "Lover");
+INSERT INTO Songs VALUES ("Flowers", 10, "Endless Summer Vacation");
+INSERT INTO Songs VALUES ("Partition", 5, "Renaissance");
+INSERT INTO Songs VALUES ("7 Rings", 7, "Thank You, Next");
+INSERT INTO Songs VALUES ("Matilda", 8, "Harry's House");
+
+--Selected the 2 tables with a join to see each artist name next to their song
+SELECT Songs.Name, Singers.Name
+FROM Songs
+JOIN Singers
+ON Songs.Artist_ID = Singers.ID;
+
+--Added a query that shows only the songs that have artists older than 35, using JOIN combined with WHERE
+SELECT Songs.Name, Singers.Name, Singers.Age AS Age
+FROM Songs
+JOIN Singers
+ON Songs.Artist_ID = Singers.ID
+WHERE Age > 35;
+
+--Listed the name and age of every singer followed by the album name and release date of albums. Used a left join so that a singer is listed even if they do not have any albums
+SELECT singers.name, singers.age, albums.name, albums.release_year
+FROM singers
+LEFT JOIN albums
+ON singers.ID = albums.artist_id;
+
+--Used a self join to show the name and age of the singer and the collab singer.
+SELECT singers.name, singers.age, collab_artist.name, collab_artist.age
+FROM singers
+JOIN singers collab_artist
+WHERE collab_artist.collab_singerID = singers.ID;
+
+--Combined multiple joins to show the album, artist name, number of albums the singer has, and a song name (only show if a song is listed)
+SELECT albums.name, singers.name, singers.albums, songs.name
+FROM albums
+JOIN singers
+ON albums.artist_ID = singers.ID
+JOIN songs
+ON songs.artist_ID = singers.ID;
