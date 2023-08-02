@@ -18,18 +18,18 @@ INSERT INTO Items VALUES (13, "White Denim Shorts", "Citizens of Humanity", 120,
 INSERT INTO Items Values (14, "Vintage Dark Wash Shorts", "Levis", 75, 5);
 INSERT INTO Items Values (15, "Vintage Light Wash Shorts", "Levis", 75, 8);
 
---display the database ordered by price. 
+--Displayed the database ordered by price. 
 SELECT * FROM Items ORDER BY Price DESC;
 
---How many sales are there for each brand? 
+--Found how many sales are there for each brand 
 SELECT Brand, SUM(Sales) FROM Items GROUP BY Brand;
 
---what is the avg price of Agolde brand items?
+--Found the avg price of Agolde brand items
 SELECT AVG(price) "Average Price"
 FROM Items
 WHERE brand='Agolde'; 
 
---what are the most 5 popular items? 
+--Found the most 5 popular items
 SELECT name, price, sales
 FROM Items
 order by sales desc
