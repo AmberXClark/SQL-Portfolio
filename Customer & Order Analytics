@@ -72,5 +72,6 @@ WHERE Price like '%.99';
 --Listed all the products sold in Los Angeles in February, and included how many of each were sold
 SELECT distinct Product, quantity
 FROM BIT_DB.FebSales
-WHERE location LIKE "%Los Angeles%";
+WHERE location LIKE "%Los Angeles%"
+GROUP BY Product;
 
