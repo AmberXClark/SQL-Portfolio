@@ -1,0 +1,58 @@
+----For this project, I performed analytics on a dataset I downloaded called chinook.
+--The dataset represents a digital media store and includes tables for artists, albums, media tracks, invoices, and customers. 
+
+--Showed Customers (their full names, customer ID, and country) who are not in the US
+SELECT FirstName, LastName, CustomerId, Country
+FROM chinook.customers
+WHERE Country != "USA";
+
+--Showed only the Customers from Brazil.
+SELECT FirstName, LastName, CustomerId, Country
+FROM chinook.customers
+WHERE Country = "Brazil";
+
+--Found the Invoices of customers who are from Brazil. 
+SELECT FirstName, LastName, customers.CustomerId, Country, InvoiceId, InvoiceDate, BillingCountry
+FROM chinook.customers
+JOIN chinook.invoices
+ON invoices.CustomerId = customers.CustomerId
+WHERE Country = "Brazil";
+
+--Showed the Employees who are Sales Agents.
+SELECT LastName, FirstName, Title
+FROM chinook.employees
+WHERE Title = "Sales Support Agent";
+
+--Found a unique/distinct list of billing countries from the Invoice table.
+SELECT DISTINCT BillingCountry
+FROM chinook.invoices;
+
+--Provided a query that shows the invoices associated with each sales agent. The resulting table should include the Sales Agent's full name.
+SELECT FirstName, LastName, invoiceid
+FROM chinook.customers
+JOIN chinook.invoices 
+ON invoices.CustomerId = customers.CustomerId
+JOIN chinook.employees
+ON customers.SupportRepId = employees.EmployeeId;
+
+--Showed the Invoice Total, Customer name, Country, and Sales Agent name for all invoices and customers.
+SELECT (Invoice_Items.UnitPrice * Invoice_Items.Quantity) AS Total, Customers.FirstName AS CusotomerFirst, Customers.LastName AS CustomerLAST, Invoices.BillingCountry, Employees.FirstName AS SalesAgentFirst, Employees.LastName AS SalesAgentLast
+FROM Invoice_Items
+JOIN Invoices
+ON Invoice_Items.InvoiceId = Invoices.InvoiceId
+JOIN Customers
+ON Invoices.CustomerId = Customers.CustomerId
+JOIN Employees
+ON Customers.SupportRepId = Employees.EmployeeId;
+
+-- Showed how many Invoices there were in 2009
+SELECT COUNT(Invoices.InvoiceId)
+FROM chinook.invoices
+WHERE Invoices.InvoiceDate LIKE "%2009%";
+
+--Showed the total sales for 2009
+SELECT SUM(Invoice_items.Quantity * Invoice_Items.UnitPrice)
+FROM invoice_items
+JOIN invoices
+ON invoice_items.InvoiceId = invoices.InvoiceId
+HAVING invoices.InvoiceDate LIKE "%2009%";
